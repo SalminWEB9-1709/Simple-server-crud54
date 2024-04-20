@@ -1,5 +1,6 @@
 const express = require ('express');
 const cors = require ('cors')
+const{ mongoclient, ServerApiVersion } = require ('mongodb');
 const app = express ();
 const port = process.env.PORT  || 5000;
 
@@ -10,9 +11,16 @@ app.use(cors());
 app.use(express.json())
 
 
-const{ mongoclient, ServerApiVersion } = require ('mongodb')
-const uri = 'mongdb+srv://elfkimberly042:bYTMZiDbzHl55Csl@cluster0.vlpdl0j.mongdb.net/?retryWrites=true&w=majority';
 
+const uri = "mongdb+srv://elfkimberly042:bYTMZiDbzHl55Csl@cluster0.vlpdl0j.mongdb.net/?retryWrites=true&w=majority";
+
+const client = new MongoClient (uri, {
+    serverApi:{
+        version: ServerApiVersion.v1,
+        stict:true,
+        deprecationErrors:true,
+    }
+});
 
 async function run (){
     try{
